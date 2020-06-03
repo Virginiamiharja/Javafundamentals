@@ -1,28 +1,23 @@
+import java.util.Scanner;
+import java.text.NumberFormat;
+
 public class App {
+    public static Scanner scanner = new Scanner(System.in);
+    // Constant variable makanya dia capslock
+    static final int BULAN_DALAM_TAHUN = 12;
 
     public static void main(String[] args) throws Exception {
-        int hargaAwal;
-        int durasiCicilan;
-        double bunga;
-        Cicilan cicilan = new Cicilan();
 
-        Display.displayMessage("Welcome to Cicilan Calculator UNICORN");
-        Display.displayMessage("=============================");
+        int hargaAwal = (int) Console.readInputNumber("Harga awal : ", 1_000_000, 10_000_000);
+        int durasiCicilan = (int) Console.readInputNumber("Durasi cicilan : ", 1);
+        double bunga = Console.readInputNumber("Bunga : ", 0);
 
-        while (cicilan.getHargaAwal() == 0) {
-            hargaAwal = (int) Read.readDouble("Masukkan harga awal: ");
-            cicilan.setHargaAwal(hargaAwal);
-        }
+        Calculate calculate = new Calculate(hargaAwal, durasiCicilan, bunga);
+        Report report = new Report(calculate);
 
-        while (cicilan.getDurasiCicilan() == 0) {
-            durasiCicilan = (int) Read.readDouble("Masukkan durasi cicilan: ");
-            cicilan.setDurasiCicilan(durasiCicilan);
-        }
+        report.tampilBayaran();
+        report.tampilSisaBayaranPerBulan();
 
-        while (cicilan.getBunga() == 0) {
-            bunga = Read.readDouble("Masukkan bunga: ");
-            cicilan.setBunga(bunga);
-        }
     }
 
 }
